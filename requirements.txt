@@ -1,0 +1,2 @@
+Flask==2.0.1
+splinter==0.15.4
