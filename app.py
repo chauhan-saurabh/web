@@ -21,8 +21,8 @@ driver = webdriver.Chrome(options=options)
 driver.set_page_load_timeout(90)
 
 # # Load the URL and get the page source
-# driver.implicitly_wait(6)
-# driver.get('https://vip.theralytics.net/')
+driver.implicitly_wait(6)
+driver.get('https://vip.theralytics.net/')
 
 
 @app.route('/')
