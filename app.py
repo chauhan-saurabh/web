@@ -1,8 +1,28 @@
 from flask import Flask, request, jsonify
 from splinter import Browser
+from selenium import webdriver
 import time
+import random
+
 
 app = Flask(__name__)
+
+# Set up the Selenium WebDriver
+options = webdriver.ChromeOptions()
+options.add_argument('--no-sandbox')
+options.add_argument('--headless')
+options.add_argument('--ignore-certificate-errors')
+options.add_argument('--disable-dev-shm-usage')
+options.add_argument('--disable-extensions')
+options.add_argument('--disable-gpu')
+# options.add_argument('--user-agent={}'.format(random.choice(list(self.user_agents))))
+
+driver = webdriver.Chrome(options=options)
+driver.set_page_load_timeout(90)
+
+# # Load the URL and get the page source
+# driver.implicitly_wait(6)
+# driver.get('https://vip.theralytics.net/')
 
 
 @app.route('/')
