@@ -12,7 +12,9 @@ def hello_world():
 @app.route('/execute', methods=['GET'])
 def execute_code():
     try:
-        browser = Browser('chrome')
+        # browser = Browser('chrome')
+        browser = Browser('chrome', headless=True)
+
         browser.visit('https://vip.theralytics.net/')
         time.sleep(5)
 
