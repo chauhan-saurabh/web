@@ -2,10 +2,7 @@ from flask import Flask, request, jsonify
 from splinter import Browser
 import time
 from splinter import Browser
-from splinter.exceptions import ElementDoesNotExist, StaleElementReferenceException
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
+
 
 app = Flask(__name__)
 
@@ -18,9 +15,10 @@ def hello_world():
 def execute_code():
     try:
         # browser = Browser('chrome')
-        browser = Browser('chrome', headless=True)
-
-        browser.visit('https://vip.theralytics.net/')
+        # browser = Browser('chrome', headless=True)
+        with Browser('chrome', headless=True) as browser:
+            browser.visit('https://vip.theralytics.net/')
+        
         time.sleep(1)
 
         browser.fill("userName", 'vipadmin')
