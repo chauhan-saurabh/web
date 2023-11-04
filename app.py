@@ -20,11 +20,13 @@ def execute_code():
         # browser = Browser('chrome', headless=True)
         options = webdriver.ChromeOptions()
         options.add_argument('--no-sandbox')
-        # options.add_argument('--headless')
+        options.add_argument('--headless')
         options.add_argument('--ignore-certificate-errors')
         options.add_argument('--disable-dev-shm-usage')
         options.add_argument('--disable-extensions')
         options.add_argument('--disable-gpu')
+        driver.set_window_size(1200, 600)
+
         
         browser = Browser('chrome', options=options)
         browser.visit('https://vip.theralytics.net/')
