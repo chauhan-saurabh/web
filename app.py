@@ -8,7 +8,10 @@ from selenium.webdriver.chrome.options import Options
 
 app = Flask(__name__)
 
-@app.route('/')
+
+
+
+@app.route('/execute', methods=['GET'])
 def execute_code():
     try:
         browser = Browser('chrome', headless=False, incognito=True)
@@ -28,7 +31,7 @@ def execute_code():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8086)
+    app.run(host='0.0.0.0', port=8082)
 
 
 
