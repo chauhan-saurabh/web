@@ -1,13 +1,13 @@
 from flask import Flask, request, jsonify
-from splinter import Browser
-import time
-from selenium import webdriver  
-from selenium.webdriver.common.keys import Keys  
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
-
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
 
 app = Flask(__name__)
-
 
 @app.route('/')
 def hello_world():
@@ -16,104 +16,89 @@ def hello_world():
 @app.route('/execute', methods=['GET'])
 def execute_code():
     try:
-        # browser = Browser('chrome')
-        # browser = Browser('chrome', headless=True)
-        options = webdriver.ChromeOptions()
+        # Use ChromeOptions to configure the headless mode and browser settings.
+        options = Options()
         options.add_argument('--no-sandbox')
         options.add_argument('--headless')
         options.add_argument('--ignore-certificate-errors')
         options.add_argument('--disable-dev-shm-usage')
         options.add_argument('--disable-extensions')
         options.add_argument('--disable-gpu')
+
+        # Initialize the Chrome WebDriver with the specified options.
         driver = webdriver.Chrome(options=options)
         driver.set_window_size(1200, 600)
 
-        
-        browser = Browser('chrome', options=options)
-        browser.visit('https://vip.theralytics.net/')
-        
-        time.sleep(1)
+        # Set an implicit wait to wait for elements to become visible.
+        driver.implicitly_wait(10)  # Adjust the timeout as needed.
 
-        browser.fill("userName", 'vipadmin')
+        # Visit the website.
+        driver.get('https://vip.theralytics.net/')
 
-        password_field = browser.find_by_xpath('//input[@type="password"]')
-        password_field.fill("TheraAdmin2020@2")
+        # Find and interact with web elements using WebDriverWait.
+        username_input = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.NAME, "userName"))
+        )
+        username_input.send_keys('vipadmin')
 
-        login_button = browser.find_by_css("button")
-        if login_button:
-            login_button.click()
-        else:
-            return jsonify({"error": "Login button not found!"})
+        password_input = driver.find_element(By.XPATH, '//input[@type="password"]')
+        password_input.send_keys('TheraAdmin2020@2')
 
-        navBar = browser.find_by_css(".nav-menu")
-        if navBar:
-            navBar.click()
-        else:
-            return jsonify({"error": "navBar with class name not found!"})
+        login_button = driver.find_element(By.CSS_SELECTOR, 'button')
+        login_button.click()
 
-        client = browser.find_by_text("Manage Client")
-        if client:
-            client.first.click()
-        else:
-            return jsonify({"error": "Div element with text 'Client' not found!"})
+        nav_bar = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "nav-menu"))
+        )
+        nav_bar.click()
 
-        client_list = browser.find_by_text("Client List")
-        if client_list:
-            client_list.first.click()
-        else:
-            return jsonify({"error": "Div element with text 'Client List' not found!"})
+        client = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.LINK_TEXT, "Manage Client"))
+        )
+        client.click()
 
-        client_search = browser.find_by_name('Name')
-        if client_search:
-            client_search.fill('sean')
-        else:
-            return jsonify({"error": "client_search not found!"})
+        client_list = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.LINK_TEXT, "Client List"))
+        )
+        client_list.click()
+
+        client_search = driver.find_element(By.NAME, 'Name')
+        client_search.send_keys('sean')
 
         time.sleep(3)
 
-        yellow_eye = browser.find_by_css(".tbactionbtn.yellowfont")
-        if yellow_eye:
-            yellow_eye.click()
-        else:
-            return jsonify({"error": "yellow_eye with class name not found!"})
+        yellow_eye = driver.find_element(By.CSS_SELECTOR, ".tbactionbtn.yellowfont")
+        yellow_eye.click()
 
         time.sleep(3)
 
         try:
-            edit_button = browser.find_by_css(".smbtn.editclient")
+            edit_button = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, ".smbtn.editclient"))
+            )
             edit_button.click()
-        except StaleElementReferenceException:
-            edit_button = browser.find_by_css(".smbtn.editclient")
-            edit_button.click()
-
-        time.sleep(1)
+        except:
+            pass
 
         try:
-            middleNameField = browser.find_by_name("middleName")
-            middleNameField.fill('Davidson')
-        except StaleElementReferenceException:
-            middleNameField = browser.find_by_name("middleName")
-            middleNameField.fill('Davidson')
-            time.sleep(1)
+            middle_name_field = driver.find_element(By.NAME, "middleName")
+            middle_name_field.send_keys('Davidson')
+        except:
+            pass
 
         try:
-            submitButton = browser.find_by_text("Save & Continue")
-            submitButton.click()
-        except StaleElementReferenceException:
-            submitButton = browser.find_by_text("Save & Continue")
-            submitButton.click()
+            submit_button = driver.find_element(By.LINK_TEXT, "Save & Continue")
+            submit_button.click()
+        except:
+            pass
 
         time.sleep(10)
 
-        browser.quit()
+        driver.quit()
 
         return jsonify({"message": "Code executed successfully"})
     except Exception as e:
         return jsonify({"error": str(e)})
 
-
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8083)
-
-
-
+    app.run(host='0.0.0.0', port=8084)
