@@ -20,7 +20,6 @@ def execute_code():
     try:
         # Set the DISPLAY environment variable to ':0' to specify the display.
         os.environ['DISPLAY'] = ':0'
-        
         # Use ChromeOptions to configure the headless mode and browser settings.
         options = Options()
         options.add_argument('--no-sandbox')
@@ -33,9 +32,10 @@ def execute_code():
         # Initialize the Chrome WebDriver with the specified options.
         driver = webdriver.Chrome(options=options)
         driver.set_window_size(1200, 600)
-
+        
+        driver.set_page_load_timeout(90)
         # Set an implicit wait to wait for elements to become visible.
-        driver.implicitly_wait(10)  # Adjust the timeout as needed.
+        driver.implicitly_wait(6)  # Adjust the timeout as needed.
 
         # Visit the website.
         driver.get('https://vip.theralytics.net/')
