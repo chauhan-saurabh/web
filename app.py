@@ -24,7 +24,7 @@ def execute_code():
         # Use ChromeOptions to configure the headless mode and browser settings.
         options = Options()
         options.add_argument('--no-sandbox')
-        options.add_argument('--headless')
+        # options.add_argument('--headless')
         options.add_argument('--ignore-certificate-errors')
         options.add_argument('--disable-dev-shm-usage')
         options.add_argument('--disable-extensions')
