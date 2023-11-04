@@ -25,6 +25,7 @@ def execute_code():
         options.add_argument('--disable-dev-shm-usage')
         options.add_argument('--disable-extensions')
         options.add_argument('--disable-gpu')
+        driver = webdriver.Chrome(options=options)
         driver.set_window_size(1200, 600)
 
         
