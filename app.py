@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
 from splinter import Browser
 import time
-from splinter import Browser
+from selenium import webdriver  
+from selenium.webdriver.common.keys import Keys  
+from selenium.webdriver.chrome.options import Options
 
 
 app = Flask(__name__)
@@ -16,8 +18,16 @@ def execute_code():
     try:
         # browser = Browser('chrome')
         # browser = Browser('chrome', headless=True)
-        with Browser('chrome', headless=True) as browser:
-            browser.visit('https://vip.theralytics.net/')
+        options = webdriver.ChromeOptions()
+        options.add_argument('--no-sandbox')
+        # options.add_argument('--headless')
+        options.add_argument('--ignore-certificate-errors')
+        options.add_argument('--disable-dev-shm-usage')
+        options.add_argument('--disable-extensions')
+        options.add_argument('--disable-gpu')
+        
+        browser = Browser('chrome', options=options)
+        browser.visit('https://vip.theralytics.net/')
         
         time.sleep(1)
 
@@ -100,7 +110,7 @@ def execute_code():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8082)
+    app.run(host='0.0.0.0', port=8083)
 
 
 
