@@ -12,7 +12,7 @@ app = Flask(__name__)
 @app.route('/execute', methods=['GET'])
 def execute_code():
     try:
-        browser = Browser()
+        browser = Browser('chrome', incognito=True)
 
         # Define the URL you want to open in the WebView
         url = 'https://google.com'
