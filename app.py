@@ -6,6 +6,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
+import os
+
 
 app = Flask(__name__)
 
@@ -16,6 +18,9 @@ def hello_world():
 @app.route('/execute', methods=['GET'])
 def execute_code():
     try:
+        # Set the DISPLAY environment variable to ':0' to specify the display.
+        os.environ['DISPLAY'] = ':0'
+        
         # Use ChromeOptions to configure the headless mode and browser settings.
         options = Options()
         options.add_argument('--no-sandbox')
