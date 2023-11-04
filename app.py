@@ -36,63 +36,63 @@ def execute_code():
         driver.get('https://vip.theralytics.net/')
 
         # Find and interact with web elements using WebDriverWait.
-        username_input = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.NAME, "userName"))
-        )
-        username_input.send_keys('vipadmin')
+        # username_input = WebDriverWait(driver, 10).until(
+        #     EC.presence_of_element_located((By.NAME, "userName"))
+        # )
+        # username_input.send_keys('vipadmin')
 
-        password_input = driver.find_element(By.XPATH, '//input[@type="password"]')
-        password_input.send_keys('TheraAdmin2020@2')
+        # password_input = driver.find_element(By.XPATH, '//input[@type="password"]')
+        # password_input.send_keys('TheraAdmin2020@2')
 
-        login_button = driver.find_element(By.CSS_SELECTOR, 'button')
-        login_button.click()
+        # login_button = driver.find_element(By.CSS_SELECTOR, 'button')
+        # login_button.click()
 
-        nav_bar = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.CLASS_NAME, "nav-menu"))
-        )
-        nav_bar.click()
+        # nav_bar = WebDriverWait(driver, 10).until(
+        #     EC.presence_of_element_located((By.CLASS_NAME, "nav-menu"))
+        # )
+        # nav_bar.click()
 
-        client = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.LINK_TEXT, "Manage Client"))
-        )
-        client.click()
+        # client = WebDriverWait(driver, 10).until(
+        #     EC.presence_of_element_located((By.LINK_TEXT, "Manage Client"))
+        # )
+        # client.click()
 
-        client_list = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.LINK_TEXT, "Client List"))
-        )
-        client_list.click()
+        # client_list = WebDriverWait(driver, 10).until(
+        #     EC.presence_of_element_located((By.LINK_TEXT, "Client List"))
+        # )
+        # client_list.click()
 
-        client_search = driver.find_element(By.NAME, 'Name')
-        client_search.send_keys('sean')
+        # client_search = driver.find_element(By.NAME, 'Name')
+        # client_search.send_keys('sean')
 
-        time.sleep(3)
+        # time.sleep(3)
 
-        yellow_eye = driver.find_element(By.CSS_SELECTOR, ".tbactionbtn.yellowfont")
-        yellow_eye.click()
+        # yellow_eye = driver.find_element(By.CSS_SELECTOR, ".tbactionbtn.yellowfont")
+        # yellow_eye.click()
 
-        time.sleep(3)
+        # time.sleep(3)
 
-        try:
-            edit_button = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, ".smbtn.editclient"))
-            )
-            edit_button.click()
-        except:
-            pass
+        # try:
+        #     edit_button = WebDriverWait(driver, 10).until(
+        #         EC.presence_of_element_located((By.CSS_SELECTOR, ".smbtn.editclient"))
+        #     )
+        #     edit_button.click()
+        # except:
+        #     pass
 
-        try:
-            middle_name_field = driver.find_element(By.NAME, "middleName")
-            middle_name_field.send_keys('Davidson')
-        except:
-            pass
+        # try:
+        #     middle_name_field = driver.find_element(By.NAME, "middleName")
+        #     middle_name_field.send_keys('Davidson')
+        # except:
+        #     pass
 
-        try:
-            submit_button = driver.find_element(By.LINK_TEXT, "Save & Continue")
-            submit_button.click()
-        except:
-            pass
+        # try:
+        #     submit_button = driver.find_element(By.LINK_TEXT, "Save & Continue")
+        #     submit_button.click()
+        # except:
+        #     pass
 
-        time.sleep(10)
+        # time.sleep(10)
 
         driver.quit()
 
