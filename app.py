@@ -9,12 +9,14 @@ from selenium.webdriver.chrome.options import Options
 app = Flask(__name__)
 
 
-
-
 @app.route('/execute', methods=['GET'])
 def execute_code():
     try:
-        browser = Browser('chrome', headless=False, incognito=True)
+        
+        # Provide the path to the Chrome binary
+        executable_path = '/opt/google/chrome/chrome'
+
+        browser = Browser('chrome', executable_path=executable_path, headless=False, incognito=True)
 
         # Define the URL you want to open in the WebView
         url = 'https://google.com'
